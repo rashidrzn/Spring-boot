@@ -1,6 +1,7 @@
 package com.example.simpleroot.controller;
 
 import com.example.simpleroot.dto.UserDTO;
+import com.example.simpleroot.entity.User;
 import com.example.simpleroot.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -26,12 +27,17 @@ public class UserController {
     }
 
     @PutMapping("/updateUser")
-    public String updateUser() {
-        return "user Updated!";
+    public UserDTO updateUser(@RequestBody UserDTO userDTO) {
+        return userService.updateUser(userDTO);
     }
 
     @DeleteMapping("/deleteUser")
-    public String deleteUser() {
-        return "User Deleted!";
+    public boolean deleteUser(@RequestBody UserDTO userDTO) {
+        return userService.deleteUser(userDTO) ;
+    }
+
+    @GetMapping("/getUserByUserId/{userId}")
+    public UserDTO getUserById(@PathVariable String userId){
+      return   userService.getUserByUserId(userId);
     }
 }
